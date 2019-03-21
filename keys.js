@@ -3,8 +3,10 @@ exports.spotify = {
 	secret: process.env.SPOTIFY_SECRET
 };
 
-exports.dotEnv = {
-	host: process.env.DB_HOST,
-	user: process.env.DB_USER,
-	pass: process.env.DB_PASS
+exports.omdb = {
+	key: process.env.OMDB_KEY
+}
+
+exports.bandsInTown = {
+	key: process.env.BIT_KEY
 }

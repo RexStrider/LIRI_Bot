@@ -14,6 +14,7 @@ let command = process.argv[2];
 // get a concert/song/movie
 let query = process.argv.slice(3).join(` `);
 
+// handles spotify-this-song feature
 function spotifyThisSong(type, song) {
 	let Spotify = require(`node-spotify-api`);
 
@@ -45,15 +46,12 @@ function spotifyThisSong(type, song) {
 	});
 }
 
-function runLiriBot(command, query) {
-
-	if (command == `concert-this`) {
-
+function concertThis(query) {
 		if (query.indexOf("\"") === 0 || query.indexOf("\'") === 0) {
 			query = query.replace(/['"]+/g, '');
 		}
 
-		axios.get(`https://rest.bandsintown.com/artists/${query}/events?app_id=codingbootcamp`)
+		axios.get(`https://rest.bandsintown.com/artists/${query}/events?app_id=${keys.bandsInTown.key}`)
 		.then( response => {
 			
 			let data=response.data;
@@ -68,98 +66,61 @@ function runLiriBot(command, query) {
 				console.log(moment(data[i].datetime).format("MM/DD/YYYY"));
 			}
 			console.log(`---------------------------------`);
-		})
+		});
+}
+
+function movieThis(query) {
+	axios.get(`http://www.omdbapi.com/?t=${query}&y=&plot=short&apikey=${keys.omdb.key}`)
+	.then( response => {
+		let data = response.data;
+		console.log(`---------------------------------`);
+		console.log(`Movie Title: ${data.Title}`);
+		console.log(`Year: ${data.Year}`);
+		console.log(`${data.Ratings[0].Source}: ${data.Ratings[0].Value}`);
+		console.log(`${data.Ratings[1].Source}: ${data.Ratings[1].Value}`);
+		console.log(`Produced in; ${data.Country}`);
+		console.log(`Original Language: ${data.Language}`);
+		console.log(`Plot: ${data.Plot}`);
+		console.log(`Actors; ${data.Actors}`);
+		console.log(`---------------------------------`);
+	});
+}
+
+function doWhatItSays() {
+	fs.readFile(`random.txt`, `utf8`, (error, data) => {
+		if (error) { console.log(error); }
+		else {
+			let ary = data.split(`,`);
+
+			for(let i = 0; i < ary.length; i = i + 2) {
+				runLiriBot(ary[i], ary[i+1]);
+			}
+		}
+	});
+}
+
+function runLiriBot(command, query) {
+	// concert-this
+	if (command == `concert-this`) {
+		concertThis(query);
 	}
-	// `spotify-this-song`
+	// spotify-this-song
 	else if (command == `spotify-this-song`) {
+		if (!query) query = "The Sign";
 		spotifyThisSong(`track`, query);
 	}
-	// `movie-this`   
+	// movie-this  
 	else if (command == `movie-this`) {
-		// We then run the request with axios module on a URL with a JSON
-		axios.get(`http://www.omdbapi.com/?t=${query}&y=&plot=short&apikey=trilogy`)
-		.then( response => {
-			let data = response.data;
-			console.log(`---------------------------------`);
-			console.log(`Movie Title: ${data.Title}`);
-			console.log(`Year: ${data.Year}`);
-			console.log(`${data.Ratings[0].Source}: ${data.Ratings[0].Value}`);
-			console.log(`${data.Ratings[1].Source}: ${data.Ratings[1].Value}`);
-			console.log(`Produced in; ${data.Country}`);
-			console.log(`Original Language: ${data.Language}`);
-			console.log(`Plot: ${data.Plot}`);
-			console.log(`Actors; ${data.Actors}`);
-			console.log(`---------------------------------`);
-		});
+		movieThis(query);
 	}
-	// `do-what-it-says`
+	// do-what-it-says
 	else if (command == `do-what-it-says`) {
-		fs.readFile(`random.txt`, `utf8`, (error, data) => {
-			if (error) { console.log(error); }
-			else {
-				let ary = data.split(`,`);
-
-				for(let i = 0; i < ary.length; i = i + 2) {
-					runLiriBot(ary[i], ary[i+1]);
-				}
-			}
-		});
+		doWhatItSays();
 	}
-
+	// command not recognized
 	else {
 		console.log("Sorry, I do not understand.");
 	}
 }
 
 runLiriBot(command, query);
-
-// commands to implement
-// `concert-this`
-// if (command === `concert-this`) {
-// 	axios.get(`https://rest.bandsintown.com/artists/${query}/events?app_id=codingbootcamp`)
-// 	.then( response => {
-// 		// console.log(response.data);
-		
-// 		let data=response.data;
-// 		for(i=0; i < data.length; i++) {
-// 			console.log(`---------------------------------`);
-// 			let lineup = data[i].lineup.join(` `);
-// 			console.log(lineup);
-// 			let venue = data[i].venue;
-// 			console.log(venue.name);
-// 			console.log(`${venue.city}, ${venue.region}, ${venue.country}`);
-// 			console.log(data.datetime);
-// 		}
-// 		console.log(`---------------------------------`);
-// 	})
-// }
-// // `spotify-this-song`
-// else if (command === `spotify-this-song`) {
-// 	spotifyThisSong(`track`, query);
-// }
-// // `movie-this`   
-// else if (command === `movie-this`) {
-// 	// We then run the request with axios module on a URL with a JSON
-// 	axios.get(`http://www.omdbapi.com/?t=${query}&y=&plot=short&apikey=trilogy`)
-// 	.then( response => {
-// 		let data = response.data;
-// 		console.log(`Movie Title: ${data.Title}`);
-// 		console.log(`Year: ${data.Year}`);
-// 		console.log(`${data.Ratings[0].Source}: ${data.Ratings[0].Value}`);
-// 		console.log(`${data.Ratings[1].Source}: ${data.Ratings[1].Value}`);
-// 		console.log(`Produced in; ${data.Country}`);
-// 		console.log(`Original Language: ${data.Language}`);
-// 		console.log(`Plot: ${data.Plot}`);
-// 		console.log(`Actors; ${data.Actors}`);
-// 	});
-// }
-// // `do-what-it-says`
-// else if (command === `do-what-it-says`) {
-// 	fs.readFile(`random.txt`, (error, data) => {
-
-// 	});
-// }
-
-// else {
-// 	console.log("Sorry, I do not understand.");
-// }
