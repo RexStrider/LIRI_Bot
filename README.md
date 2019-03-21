@@ -39,7 +39,7 @@ Language Interpretation and Recognition Interface: A command line node app that 
 
 * There are several commands that LIRI understands
 
-    1. concert-this <name of band>
+    1. concert-this (name of band)
 
         * runs a query on the Bands in Town API using the name of the band
 
@@ -47,7 +47,7 @@ Language Interpretation and Recognition Interface: A command line node app that 
 
     ![alt text][concert]
 
-    2. movie-this <name of movie>
+    2. movie-this (name of movie)
 
         * runs a query on the OMDB API using the name of the movie
 
@@ -65,7 +65,7 @@ Language Interpretation and Recognition Interface: A command line node app that 
             ```
     ![alt text][movie]
 
-    3. spotify-this-song <name of song>
+    3. spotify-this-song (name of song)
 
         * runs a query on the Spotify API using the name of a song
 
@@ -83,7 +83,7 @@ Language Interpretation and Recognition Interface: A command line node app that 
 
 * LIRI is basically a script run through node, so all commands must be run in the following way,
 
-    * node liri <command> <query>
+    * node liri (command) (query)
 
 [concert]: ./images/concert-this-screenshot.png "concert-this command screenshot"
 [movie]: ./images/movie-this-screenshot.png "movie-this command"
