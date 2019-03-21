@@ -33,7 +33,9 @@ Language Interpretation and Recognition Interface: A command line node app that 
 
    * You can get a key from OMDB here <http://www.omdbapi.com/apikey.aspx>
 
-   * There should be a way to get a bands in town api key, however when I travel to the link <https://manager.bandsintown.com/bandsintown-api> I get redirected to <https://manager.bandsintown.com/manage/pages>, even when I'm logged in. Just use the the key 'codingbootcamp'
+   * There should be a way to get a bands in town api key, however when I travel to the link <https://manager.bandsintown.com/bandsintown-api> I get redirected to <https://manager.bandsintown.com/manage/pages>, even when I'm logged in.
+   
+   * Just use the the key 'codingbootcamp'
 
 ### Running LIRI BOT
 
