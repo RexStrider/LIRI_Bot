@@ -10,7 +10,6 @@ Language Interpretation and Recognition Interface: A command line node app that 
 
 ```js
 # Spotify API keys
-
 SPOTIFY_ID=your-spotify-id
 SPOTIFY_SECRET=your-spotify-secret
 
@@ -36,4 +35,44 @@ BIT_KEY=your-bands-in-town-key
 
    * There should be a way to get a bands in town api key, however when I travel to the link <https://manager.bandsintown.com/bandsintown-api> I get redirected to <https://manager.bandsintown.com/manage/pages>, even when I'm logged in. Just use the the key 'codingbootcamp'
 
-   
+### Running LIRI BOT
+
+* There are several commands that LIRI understands
+
+    1. concert-this <name of band>
+
+        * runs a query on the Bands in Town API using the name of the band
+
+        * returns the name of the venue, the venue location, and the date of the concert for several concerts that the band is playing at
+
+    2. movie-this <name of movie>
+
+        * runs a query on the OMDB API using the name of the movie
+
+        * returns the following information;
+
+             ```
+                * Title of the movie.
+                * Year the movie came out.
+                * IMDB Rating of the movie.
+                * Rotten Tomatoes Rating of the movie.
+                * Country where the movie was produced.
+                * Language of the movie.
+                * Plot of the movie.
+                * Actors in the movie.
+            ```
+
+    3. spotify-this-song <name of song>
+
+        * runs a query on the Spotify API using the name of a song
+
+        * returns the Artists name, songs name, preview link, and albums name for several songs. Sometimes Spotify provides covers to the song, sometimes it provides the actual song, sometimes it provides songs with similar names.
+
+    4. do-what-it-says
+
+        * runs a query using the information stored in the random.txt file
+
+* LIRI is basically a script run through node, so all commands must be run in the following way,
+
+    * node liri <command> <query>
+
