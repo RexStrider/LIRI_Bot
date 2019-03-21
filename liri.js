@@ -33,14 +33,19 @@ function spotifyThisSong(type, song) {
 
 		console.log(`---------------------------------`);
 		for (i in tracks) {
+
 			let artists = [];
-			for (j in tracks[i].artists) {
+			for (j in tracks[i].artists)  {
 				artists.push(tracks[i].artists[j].name);
 			}
 			console.log(`Artist: ${artists.join(", ")}`);
+
 			console.log(`Song: ${tracks[i].name}`);
+
 			console.log(`Preview URL: ${tracks[i].preview_url}`);
+
 			console.log(`Album: ${tracks[i].album.name}`);
+
 			console.log(`---------------------------------`);	
 		}
 	});
@@ -58,11 +63,19 @@ function concertThis(query) {
 
 			for(i=0; i < data.length; i++) {
 				console.log(`---------------------------------`);
-				let lineup = data[i].lineup.join(` `);
+
+				let lineup = data[i].lineup.join(`, `);
 				console.log(lineup);
+
 				let venue = data[i].venue;
 				console.log(venue.name);
-				console.log(`${venue.city}, ${venue.region}, ${venue.country}`);
+
+				let venueAry = [];
+				if (venue.city) venueAry.push(venue.city);
+				if (venue.region) venueAry.push(venue.region);
+				if (venue.country) venueAry.push(venue.country);
+				console.log(venueAry.join(`, `));
+
 				console.log(moment(data[i].datetime).format("MM/DD/YYYY"));
 			}
 			console.log(`---------------------------------`);
@@ -72,16 +85,27 @@ function concertThis(query) {
 function movieThis(query) {
 	axios.get(`http://www.omdbapi.com/?t=${query}&y=&plot=short&apikey=${keys.omdb.key}`)
 	.then( response => {
+
 		let data = response.data;
+
 		console.log(`---------------------------------`);
+
 		console.log(`Movie Title: ${data.Title}`);
+
 		console.log(`Year: ${data.Year}`);
+
 		console.log(`${data.Ratings[0].Source}: ${data.Ratings[0].Value}`);
+
 		console.log(`${data.Ratings[1].Source}: ${data.Ratings[1].Value}`);
+
 		console.log(`Produced in; ${data.Country}`);
+
 		console.log(`Original Language: ${data.Language}`);
+
 		console.log(`Plot: ${data.Plot}`);
+
 		console.log(`Actors; ${data.Actors}`);
+		
 		console.log(`---------------------------------`);
 	});
 }
@@ -102,6 +126,7 @@ function doWhatItSays() {
 function runLiriBot(command, query) {
 	// concert-this
 	if (command == `concert-this`) {
+		if (!query) query = "Comethazine";
 		concertThis(query);
 	}
 	// spotify-this-song
@@ -111,6 +136,7 @@ function runLiriBot(command, query) {
 	}
 	// movie-this  
 	else if (command == `movie-this`) {
+		if (!query) query = `Mr. Nobody`;
 		movieThis(query);
 	}
 	// do-what-it-says
