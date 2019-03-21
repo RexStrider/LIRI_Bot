@@ -52,34 +52,39 @@ function spotifyThisSong(type, song) {
 }
 
 function concertThis(query) {
-		if (query.indexOf("\"") === 0 || query.indexOf("\'") === 0) {
-			query = query.replace(/['"]+/g, '');
-		}
+	// Bands in Town API can't handle qoutation marks surounding the query string,
+	// so I check to see if a single or double qoutation mark is at the first index
+	// and if I find one I nuke all of them... tactically... 
+	if (query.indexOf("\"") === 0 || query.indexOf("\'") === 0) {
+		// this function call is removing all single and double quotation marks in the string
+		query = query.replace(/['"]+/g, '');
+	}
 
-		axios.get(`https://rest.bandsintown.com/artists/${query}/events?app_id=${keys.bandsInTown.key}`)
-		.then( response => {
-			
-			let data=response.data;
+	// call to the Bands in Town API
+	axios.get(`https://rest.bandsintown.com/artists/${query}/events?app_id=${keys.bandsInTown.key}`)
+	.then( response => {
+		
+		let data=response.data;
 
-			for(i=0; i < data.length; i++) {
-				console.log(`---------------------------------`);
-
-				let lineup = data[i].lineup.join(`, `);
-				console.log(lineup);
-
-				let venue = data[i].venue;
-				console.log(venue.name);
-
-				let venueAry = [];
-				if (venue.city) venueAry.push(venue.city);
-				if (venue.region) venueAry.push(venue.region);
-				if (venue.country) venueAry.push(venue.country);
-				console.log(venueAry.join(`, `));
-
-				console.log(moment(data[i].datetime).format("MM/DD/YYYY"));
-			}
+		for(i=0; i < data.length; i++) {
 			console.log(`---------------------------------`);
-		});
+
+			let lineup = data[i].lineup.join(`, `);
+			console.log(lineup);
+
+			let venue = data[i].venue;
+			console.log(venue.name);
+
+			let venueAry = [];
+			if (venue.city) venueAry.push(venue.city);
+			if (venue.region) venueAry.push(venue.region);
+			if (venue.country) venueAry.push(venue.country);
+			console.log(venueAry.join(`, `));
+
+			console.log(moment(data[i].datetime).format("MM/DD/YYYY"));
+		}
+		console.log(`---------------------------------`);
+	});
 }
 
 function movieThis(query) {
@@ -105,7 +110,7 @@ function movieThis(query) {
 		console.log(`Plot: ${data.Plot}`);
 
 		console.log(`Actors; ${data.Actors}`);
-		
+
 		console.log(`---------------------------------`);
 	});
 }
