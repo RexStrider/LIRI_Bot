@@ -8,18 +8,18 @@ Language Interpretation and Recognition Interface: A command line node app that 
 
     * create a file named `.env`, add the following to it, replacing the values with your API keys (no quotes) once you have them:
 
-```js
-# Spotify API keys
-SPOTIFY_ID=your-spotify-id
-SPOTIFY_SECRET=your-spotify-secret
+    ```js
+    # Spotify API keys
+    SPOTIFY_ID=your-spotify-id
+    SPOTIFY_SECRET=your-spotify-secret
 
-# OMDB API key
-OMDB_KEY=your-omdb-key
+    # OMDB API key
+    OMDB_KEY=your-omdb-key
 
-# Bands In Town API key
-BIT_KEY=your-bands-in-town-key
+    # Bands In Town API key
+    BIT_KEY=your-bands-in-town-key
 
-```
+    ```
 
     * The Spotify API requires you sign up as a developer to generate the necessary credentials. You can follow these steps in order to generate a **client id** and **client secret**:
 
@@ -45,7 +45,7 @@ BIT_KEY=your-bands-in-town-key
 
         * returns the name of the venue, the venue location, and the date of the concert for several concerts that the band is playing at
 
-![alt text][concert]
+    ![alt text][concert]
 
     2. movie-this <name of movie>
 
@@ -63,7 +63,7 @@ BIT_KEY=your-bands-in-town-key
                 * Plot of the movie.
                 * Actors in the movie.
             ```
-![alt text][movie]
+    ![alt text][movie]
 
     3. spotify-this-song <name of song>
 
@@ -71,15 +71,15 @@ BIT_KEY=your-bands-in-town-key
 
         * returns the Artists name, songs name, preview link, and albums name for several songs. Sometimes Spotify provides covers to the song, sometimes it provides the actual song, sometimes it provides songs with similar names.
 
-![alt text][spotify]
+    ![alt text][spotify]
 
     4. do-what-it-says
 
         * runs a query using the information stored in the random.txt file
 
-![alt text][do-it-01]
+    ![alt text][do-it-01]
 
-![alt text][do-it-02]
+    ![alt text][do-it-02]
 
 * LIRI is basically a script run through node, so all commands must be run in the following way,
 
