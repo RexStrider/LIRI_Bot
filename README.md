@@ -45,6 +45,9 @@ BIT_KEY=your-bands-in-town-key
 
         * returns the name of the venue, the venue location, and the date of the concert for several concerts that the band is playing at
 
+        Reference-style: 
+        ![alt text][concert]
+
     2. movie-this <name of movie>
 
         * runs a query on the OMDB API using the name of the movie
@@ -61,6 +64,8 @@ BIT_KEY=your-bands-in-town-key
                 * Plot of the movie.
                 * Actors in the movie.
             ```
+            Reference-style: 
+            ![alt text][movie]
 
     3. spotify-this-song <name of song>
 
@@ -68,18 +73,25 @@ BIT_KEY=your-bands-in-town-key
 
         * returns the Artists name, songs name, preview link, and albums name for several songs. Sometimes Spotify provides covers to the song, sometimes it provides the actual song, sometimes it provides songs with similar names.
 
+        Reference-style: 
+        ![alt text][spotify]
+
     4. do-what-it-says
 
         * runs a query using the information stored in the random.txt file
+
+        Reference-style: 
+        ![alt text][do-it-01]
+
+        Reference-style: 
+        ![alt text][do-it-02]
 
 * LIRI is basically a script run through node, so all commands must be run in the following way,
 
     * node liri <command> <query>
 
- 
-![alt text](./images/concert-this-screenshot.png "concert-this command screenshot")
-
-Reference-style: 
-![alt text][concert]
-
-[concert]: ./images/concert-this-screenshot.png "concert-this command screenshot 02"
+[concert]: ./images/concert-this-screenshot.png "concert-this command screenshot"
+[movie]: ./images/movie-this-screenshot.png "movie-this command"
+[spotify]: ./images/spotify-this-song-screenshot.png "spotify-this-song command"
+[do-it-01]: ./images/do-what-it-says-01-screenshot.png "do-what-it-says command initial"
+[do-it-02]: ./images/do-what-it-says-02-screenshot.png "do-what-it-says command continued"
