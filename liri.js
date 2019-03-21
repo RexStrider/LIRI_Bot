@@ -1,25 +1,31 @@
 require(`dotenv`).config();
 
+// api keys
 let keys = require(`./keys.js`);
 
+// file system library
 let fs = require("fs");
 
+// api call library
 let axios = require(`axios`);
 
+// date library
 let moment = require(`moment`);
 
-// get command
+// The users command
 let command = process.argv[2];
 
-// get a concert/song/movie
+// The requested concert/song/movie
 let query = process.argv.slice(3).join(` `);
 
 // handles spotify-this-song feature
 function spotifyThisSong(type, song) {
 	let Spotify = require(`node-spotify-api`);
 
+	// creates spotify object
 	let spotify = new Spotify(keys.spotify);
 
+	// sends request to spotify
 	spotify.search({
 		type: type,
 		query: song,
@@ -29,6 +35,7 @@ function spotifyThisSong(type, song) {
 			return console.log(`Error occurred: ${error}`);
 		}
 
+		// logs songs retrieved from spotify
 		let tracks = data.tracks.items;
 
 		console.log(`---------------------------------`);
@@ -51,6 +58,7 @@ function spotifyThisSong(type, song) {
 	});
 }
 
+// handles concert-this feature
 function concertThis(query) {
 	// Bands in Town API can't handle qoutation marks surounding the query string,
 	// so I check to see if a single or double qoutation mark is at the first index
@@ -60,10 +68,11 @@ function concertThis(query) {
 		query = query.replace(/['"]+/g, '');
 	}
 
-	// call to the Bands in Town API
+	// sends request to Bands in Town API
 	axios.get(`https://rest.bandsintown.com/artists/${query}/events?app_id=${keys.bandsInTown.key}`)
 	.then( response => {
 		
+		// logs events retrieved from Bands in Town API
 		let data=response.data;
 
 		for(i=0; i < data.length; i++) {
@@ -87,10 +96,13 @@ function concertThis(query) {
 	});
 }
 
+// handles movie-this feature
 function movieThis(query) {
+	// sends request to OMDB API
 	axios.get(`http://www.omdbapi.com/?t=${query}&y=&plot=short&apikey=${keys.omdb.key}`)
 	.then( response => {
 
+		// logs movies retrieved from OMDB API
 		let data = response.data;
 
 		console.log(`---------------------------------`);
@@ -115,12 +127,18 @@ function movieThis(query) {
 	});
 }
 
+// handles do-what-it-says features
 function doWhatItSays() {
+	
+	// retrieves requests in random text file
 	fs.readFile(`random.txt`, `utf8`, (error, data) => {
 		if (error) { console.log(error); }
 		else {
+			
+			// text is divided by ',' character
 			let ary = data.split(`,`);
 
+			// sends commands back to LIRI function
 			for(let i = 0; i < ary.length; i = i + 2) {
 				runLiriBot(ary[i], ary[i+1]);
 			}
@@ -150,7 +168,11 @@ function runLiriBot(command, query) {
 	}
 	// command not recognized
 	else {
-		console.log("Sorry, I do not understand.");
+		console.log("Sorry, I do not understand. Try one of the following commands.\n");
+		console.log("concert-this <name of band>");
+		console.log("spotify-this-song <name of song>");
+		console.log("movie-this <name of movie>");
+		console.log("do-what-it-says\n");
 	}
 }
 
