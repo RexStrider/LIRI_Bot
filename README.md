@@ -90,3 +90,4 @@ Language Interpretation and Recognition Interface: A command line node app that 
 [spotify]: ./images/spotify-this-song-screenshot.png "spotify-this-song command"
 [do-it-01]: ./images/do-what-it-says-01-screenshot.png "do-what-it-says command initial"
 [do-it-02]: ./images/do-what-it-says-02-screenshot.png "do-what-it-says command continued"
+
